@@ -1,12 +1,12 @@
 # HackAThon
 
-#### Hackathon Organizer, August 11, 2017
+#### Epicodus API, August 25, 2017
 
 #### By Kheifer Fuller
 
 ## Description
 
-This java app creates an interface that allows the maintenance of a Hackathon by groups and team members.
+This java app creates an API that allows the maintenance of Epicodus student statistics and data analysis. 
 
 ## Setup/Installation Requirements
 
