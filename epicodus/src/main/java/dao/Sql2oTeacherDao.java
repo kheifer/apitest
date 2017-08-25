@@ -30,6 +30,11 @@ public class Sql2oTeacherDao implements TeacherDao {
     }
 
     @Override
+    public void addTeacherToCohort(String CohortName, int id) {
+
+    }
+
+    @Override
     public List<Teacher> getAllTeachers() {
         String query = "SELECT * FROM teachers";
         try(Connection con = sql2o.open()){
@@ -50,7 +55,20 @@ public class Sql2oTeacherDao implements TeacherDao {
 
     @Override
     public void updateTeacher(String name, String hireDate, String gender, String zipcode, Integer classesTaught, int id) {
-
+        String query = "UPDATE teachers (name, hireDate, gender, zipcode, classesTaught, int id) VALUES (:name, :hireDate, :gender, :zipcode, :classesTaught, int id)";
+        try(Connection con = sql2o.open()){
+            con.createQuery(query)
+                    .addParameter("name", name)
+                    .addParameter("hireDate", hireDate)
+                    .addParameter("gender", gender)
+                    .addParameter("zipcode",zipcode)
+                    .addParameter("classesTaught", classesTaught)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
 
     @Override
@@ -60,6 +78,8 @@ public class Sql2oTeacherDao implements TeacherDao {
             con.createQuery(query)
                     .addParameter("id", id)
                     .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
         }
     }
 
@@ -69,6 +89,8 @@ public class Sql2oTeacherDao implements TeacherDao {
         try(Connection con = sql2o.open()){
             con.createQuery(query)
                     .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
         }
     }
 }

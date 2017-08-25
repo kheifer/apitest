@@ -6,17 +6,17 @@ public class Student {
     private String lastJob;
     private String gender;
     private String zipcode;
-    private String currentTrack;
+    private int trackId;
     private int id;
     private Boolean graduated;
 
-    public Student(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated){
+    public Student(String name, Integer age, String lastJob, String gender, String zipcode, int trackId, Boolean graduated){
         this.name = name;
         this.age = age;
         this.lastJob = lastJob;
         this.gender = gender;
         this.zipcode = zipcode;
-        this.currentTrack = currentTrack;
+        this.trackId = trackId;
         this.graduated = graduated;
     }
 
@@ -37,8 +37,8 @@ public class Student {
     public String getZipcode() {
         return zipcode;
     }
-    public String getCurrentTrack() {
-        return currentTrack;
+    public int trackId() {
+        return trackId;
     }
     public int getId() {
         return id;
@@ -64,8 +64,8 @@ public class Student {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
-    public void setCurrentTrack(String currentTrack) {
-        this.currentTrack = currentTrack;
+    public void setTrackId(int trackId) {
+        this.trackId = trackId;
     }
     public void setId(int id) {
         this.id = id;
@@ -88,7 +88,6 @@ public class Student {
         if (!lastJob.equals(student.lastJob)) return false;
         if (!gender.equals(student.gender)) return false;
         if (!zipcode.equals(student.zipcode)) return false;
-        if (!currentTrack.equals(student.currentTrack)) return false;
         return graduated.equals(student.graduated);
     }
 
@@ -99,7 +98,6 @@ public class Student {
         result = 31 * result + lastJob.hashCode();
         result = 31 * result + gender.hashCode();
         result = 31 * result + zipcode.hashCode();
-        result = 31 * result + currentTrack.hashCode();
         result = 31 * result + graduated.hashCode();
         return result;
     }

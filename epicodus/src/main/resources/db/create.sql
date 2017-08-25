@@ -20,3 +20,13 @@ CREATE TABLE IF NOT EXISTS teachers(
     zipcode VARCHAR,
     classesTaught INTEGER,
 );
+CREATE TABLE IF NOT EXISTS cohorts (
+  cohortId int PRIMARY KEY auto_increment,
+  cohortName VARCHAR,
+  location VARCHAR
+);
+CREATE TABLE IF NOT EXISTS cohorts_teachers (
+  id int PRIMARY KEY auto_increment,
+  cohortName VARCHAR,
+  teacherId INTEGER
+);
