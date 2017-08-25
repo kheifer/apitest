@@ -12,3 +12,8 @@ CREATE TABLE IF NOT EXISTS tracks (
   duration VARCHAR,
   focus VARCHAR,
 );
+CREATE TABLE IF NOT EXISTS cohorts_tracks (
+  id int PRIMARY KEY auto_increment,
+  cohortId INTEGER,
+  trackId INTEGER,
+);
