@@ -41,7 +41,13 @@ public class Sql2oStudentDao implements StudentDao {
 
     @Override
     public Student findbyId(int id) {
-
+        String query = "SELECT * FROM students WHERE id = :id";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Student.class);
+        }
     }
 
     @Override
