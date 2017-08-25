@@ -40,7 +40,12 @@ public class Sql2oTeacherDao implements TeacherDao {
 
     @Override
     public Teacher findById(int id) {
-        return null;
+        String query = "SELECT * FROM teachers WHERE id = :id";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Teacher.class);
+        }
     }
 
     @Override
