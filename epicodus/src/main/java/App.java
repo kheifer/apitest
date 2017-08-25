@@ -1,10 +1,12 @@
 import com.google.gson.Gson;
-import dao.Sql2oAlumniDao;
-import dao.Sql2oCohortDao;
-import dao.Sql2oStudentDao;
-import dao.Sql2oTeacherDao;
-import models.Cohort;
+import dao.*;
+import exceptions.ApiException;
+import models.*;
 import org.sql2o.Sql2o;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.*;
 
@@ -16,63 +18,75 @@ public class App {
             String connector = "jdbc:h2:~/epicodus.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
             Sql2o sql2o = new Sql2o(connector, "", "");
             Sql2oCohortDao cohortDao = new Sql2oCohortDao(sql2o);
+            Sql2oTrackDao trackDao = new Sql2oTrackDao(sql2o);
             Sql2oAlumniDao alumniDao = new Sql2oAlumniDao(sql2o);
             Sql2oTeacherDao teacherDao = new Sql2oTeacherDao(sql2o);
             Sql2oStudentDao studentDao = new Sql2oStudentDao(sql2o);
             Gson gson = new Gson();
 
             //Create
-            post("/Epicodus/new", "application/json", (request, response) -> {
+            post("/cohort/new", "application/json", (request, response) -> {
                 Cohort newCohort = gson.fromJson(request.body(), Cohort.class);
                 cohortDao.add(newCohort);
                 return gson.toJson(newCohort);
             });
 
             //Read
-            get("/Epicodus/all", "application/json", (request, response) -> {
+            get("/cohort/all", "application/json", (request, response) -> {
                 return gson.toJson(cohortDao.getAll());
             });
 
 
-            //Create
-            post("/Epicodus/:campus/track/new", "application/json", (request, response) -> {
+            //Read
+            get("/cohort/:cohortId", "application/json", (request, response) -> {
+                int id = Integer.parseInt(request.params("cohortId"));
+                Cohort search = cohortDao.findById(id);
+                return gson.toJson(search);
+            });
+            get("/cohort/:cohortId/track", "application/json", (request, response) -> {
+                int cohortId = Integer.parseInt(request.params("cohortId"));
+                List<Track> trackShow = trackDao.getAllTracksByCohort(cohortId);
+                if (trackShow.size() == 0){
+                    throw new ApiException(404,"Unfortunately, that cohort doesn't have any tracks set up yet.");
+                }
+                return gson.toJson(trackShow);
+            });
+
+
+            post("/cohort/:cohortId/track/new", "application/json", (request, response) -> {
                 Track newTrack= gson.fromJson(request.body(), Track.class);
                 trackDao.add(newTrack);
-                String campus = request.params("campus");
-                trackDao.addTrackToCampuses(campus, newTrack.getTrackId());
+                int cohortId = Integer.parseInt(request.params("cohortId"));
+                trackDao.addTrackToCohort(cohortId, newTrack.getTrackId());
                 return gson.toJson(newTrack);
             });
 
             //Read
-            get("/Epicodus/tracks/all", "application/json", (request, response) -> {
+            get("tracks/all", "application/json", (request, response) -> {
                 return gson.toJson(trackDao.getAll());
             });
 
-            get("/Epicodus/:campus/all", "application/json", (request, response) -> {
-                String campus = request.params("campus");
-                List<Track> campusFinder = trackDao.getAllTracksByLocation(campus);
-                if (campusFinder.size() == 0){
-                    throw new ApiException(404, String.format("Sorry, looks like the %s campus doesn't have any tracks", request.params("campus")));
-                }
-                return gson.toJson(campusFinder);
-            });
 
-            post("/Epicodus/student/new", "application/json", (request, response) -> {
+            post("/track/:trackId/student/new", "application/json", (request, response) -> {
                 Student newStudent= gson.fromJson(request.body(), Student.class);
                 studentDao.add(newStudent);
+                studentDao.setTrackId(newStudent, Integer.parseInt(request.params("trackId")));
                 return gson.toJson(newStudent);
             });
 
-            get("/Epicodus/facts/age", "application/json", (request, response) -> {
-                return gson.toJson(studentDao.averageAge());
+            get("/students/statistics/popular", "application/json", (request, response) -> {
+                return gson.toJson(studentDao.getMostPopularTrack());
             });
-            get("/Epicodus/facts/gender", "application/json", (request, response) -> {
-                return gson.toJson(studentDao.genderDistribution());
+            get("/students/statistics/genderstats/:gender", "application/json", (request, response) -> {
+                String gender = request.params("gender");
+                return gson.toJson(studentDao.genderDistribution(gender));
             });
-            get("/Epicodus/facts/completion", "application/json", (request, response) -> {
-                return gson.toJson(studentDao.completion());
+
+            get("/students/statistics/completion", "application/json", (request, response) -> {
+                return gson.toJson(studentDao.getPercentCompleted ());
             });
-            get("/Epicodus/:track/:trackId/students", "application/json", (request, response) -> {
+
+            get("/students/statistics/count/:trackId", "application/json", (request, response) -> {
                 int trackId = Integer.parseInt(request.params("trackId"));
                 return gson.toJson(studentDao.getAllStudentsByTrack(trackId));
             });
@@ -91,8 +105,5 @@ public class App {
             after((req, res) ->{
                 res.type("application/json");
             });
-
-
-        }
     }
 }

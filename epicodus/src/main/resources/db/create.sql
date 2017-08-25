@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS students (
     lastJob VARCHAR,
     gender VARCHAR,
     zipcode VARCHAR,
-    currentTrack VARCHAR,
+    trackId VARCHAR,
     graduated BOOLEAN,
     currentJob VARCHAR,
     daysToJob INTEGER,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS tracks (
 );
 CREATE TABLE IF NOT EXISTS cohorts_tracks (
   id int PRIMARY KEY auto_increment,
-  cohortName VARCHAR,
+  cohortId VARCHAR,
   teacherId INTEGER
 );
 CREATE TABLE IF NOT EXISTS teachers_students (

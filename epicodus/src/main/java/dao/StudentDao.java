@@ -9,13 +9,15 @@ import java.util.Map;
 public interface StudentDao {
     void add(Student student);
 
+    void setTrackId(Student student, int trackId);
+
     List<Student> getAll();
 
     Student findbyId(int id);
 
     Double findAverageAge();
 
-    List<Student> getAllStudentsByTrack(Integer trackId);
+    Integer getAllStudentsByTrack(Integer trackId);
 
     String getMostPopularTrack();
 

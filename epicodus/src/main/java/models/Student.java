@@ -10,13 +10,12 @@ public class Student {
     private int id;
     private Boolean graduated;
 
-    public Student(String name, Integer age, String lastJob, String gender, String zipcode, int trackId, Boolean graduated){
+    public Student(String name, Integer age, String lastJob, String gender, String zipcode, Boolean graduated){
         this.name = name;
         this.age = age;
         this.lastJob = lastJob;
         this.gender = gender;
         this.zipcode = zipcode;
-        this.trackId = trackId;
         this.graduated = graduated;
     }
 
@@ -37,7 +36,7 @@ public class Student {
     public String getZipcode() {
         return zipcode;
     }
-    public int trackId() {
+    public int getTrackId() {
         return trackId;
     }
     public int getId() {
@@ -76,6 +75,7 @@ public class Student {
 
     //equals and hashcode
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,6 +83,7 @@ public class Student {
 
         Student student = (Student) o;
 
+        if (trackId != student.trackId) return false;
         if (!name.equals(student.name)) return false;
         if (!age.equals(student.age)) return false;
         if (!lastJob.equals(student.lastJob)) return false;
@@ -98,6 +99,7 @@ public class Student {
         result = 31 * result + lastJob.hashCode();
         result = 31 * result + gender.hashCode();
         result = 31 * result + zipcode.hashCode();
+        result = 31 * result + trackId;
         result = 31 * result + graduated.hashCode();
         return result;
     }

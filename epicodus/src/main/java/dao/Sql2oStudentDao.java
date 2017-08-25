@@ -17,7 +17,7 @@ public class Sql2oStudentDao implements StudentDao {
 
     @Override
     public void add(Student student) {
-        String query = "INSERT into students (name, age, lastJob, gender, zipcode, currentTrack, graduated) VALUES (:name, :age, :lastJob, :gender, :zipcode, :currentTrack, :graduated)";
+        String query = "INSERT into students (name, age, lastJob, gender, zipcode, graduated) VALUES (:name, :age, :lastJob, :gender, :zipcode, :graduated)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(query)
                     .bind(student)
@@ -27,6 +27,18 @@ public class Sql2oStudentDao implements StudentDao {
             student.setId(id);
         }catch (Sql2oException ex){
             System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void setTrackId(Student student, int trackId) {
+        String query = "INSERT into students trackId = :trackId WHERE id = :id";
+        try(Connection con = sql2o.open()){
+             con.createQuery(query)
+                    .addParameter("id", student.getId())
+                    .addParameter("trackId", trackId)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
         }
     }
 
@@ -62,13 +74,13 @@ public class Sql2oStudentDao implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudentsByTrack(Integer trackId) {
-        String query = "SELECT * FROM students WHERE trackId = :trackId";
+    public Integer getAllStudentsByTrack(Integer trackId) {
+        String query = "SELECT COUNT(*) FROM students WHERE trackId = :trackId";
         try(Connection con = sql2o.open()){
             return con.createQuery(query)
                     .addParameter("trackId", trackId)
                     .throwOnMappingFailure(false)
-                    .executeAndFetch(Student.class);
+                    .executeAndFetchFirst(Integer.class);
         }
     }
 
