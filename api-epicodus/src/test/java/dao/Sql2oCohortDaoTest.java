@@ -37,7 +37,7 @@ public class Sql2oCohortDaoTest {
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void getAll_ReteivesAllInstancesOfCohort() throws Exception {
         Cohort newCohort = setNewCohort();
         Cohort newCohort1= setNewCohort();
         cohortDao.add(newCohort);
@@ -47,7 +47,7 @@ public class Sql2oCohortDaoTest {
     }
 
     @Test
-    public void findById() throws Exception {
+    public void findById_findsCohortById() throws Exception {
         Cohort newCohort = setNewCohort();
         Cohort newCohort1= setNewCohort();
         Cohort newCohort2= setNewCohort1();
@@ -64,7 +64,7 @@ public class Sql2oCohortDaoTest {
     }
 
     @Test
-    public void updateCohort() throws Exception {
+    public void updateCohort_updatesCohortInformationById() throws Exception {
         Cohort newCohort1= setNewCohort();
         Cohort newCohort2= setNewCohort1();
         Cohort newCohort3= setNewCohort();
