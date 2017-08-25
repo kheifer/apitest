@@ -7,6 +7,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -77,11 +78,51 @@ public class Sql2oStudentDaoTest {
         studentDao.deleteById(id);
         assertEquals(1, studentDao.getAll().size());
     }
+    @Test
+    public void findAverageAge_findsTheAvergaeAgeOfStudents() throws Exception {
+        Student student = createStudent();
+        Student student1 = createStudent2();
+        studentDao.add(student);
+        studentDao.add(student1);
+        Double answer = studentDao.findAverageAge();
+        Double expected = (double)(student.getAge()+student1.getAge())/2;
+        assertEquals(expected , answer);
+    }
+    @Test
+    public void getMostPopularTrack_retursMostPopularTrack() throws Exception{
+        Student student = createStudent();
+        Student student1 = createStudent2();
+        Student student2 = createStudent();
+        Student student3 = createStudent();
+        Student student4 = createStudent2();
+        studentDao.add(student);
+        studentDao.add(student1);
+        studentDao.add(student2);
+        studentDao.add(student3);
+        studentDao.add(student4);
+        String answer = studentDao.getMostPopularTrack();
+        assertEquals(student.getCurrentTrack(), answer);
+    }
+//    @Test
+//    public void sortByGender() throws Exception{
+//            Student student = createStudent();
+//            Student student1 = createStudent2();
+//            Student student2 = createStudent();
+//            Student student3 = createStudent();
+//            Student student4 = createStudent2();
+//            studentDao.add(student);
+//            studentDao.add(student1);
+//            studentDao.add(student2);
+//            studentDao.add(student3);
+//            studentDao.add(student4);
+//            List<String> answer = studentDao.genderDistribution();
+//            System.out.println(answer);
+//    }
 
     public Student createStudent(){
         return new Student("Max Pass",30, "Biology", "Male", "97211", "Java",false);
     }
     public Student createStudent2(){
-        return new Student("Scary Terry",20, "Food Service", "Female", "97211", "Java",false);
+        return new Student("Scary Terry",20, "Food Service", "Female", "97211", "python",false);
     }
 }

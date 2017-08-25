@@ -85,6 +85,7 @@ public class Sql2oTeacherDaoTest {
         Teacher teacher2 = setUpNew2();
         teacherDao.add(teacher);
         teacherDao.add(teacher2);
+        teacherDao.removeAllTeachers();
         assertEquals(0, teacherDao.getAllTeachers().size());
     }
 

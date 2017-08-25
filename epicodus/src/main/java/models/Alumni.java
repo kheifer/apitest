@@ -3,6 +3,7 @@ package models;
 public class Alumni extends Student {
     private String currentJob;
     private Integer daysToJob;
+    private Integer salary;
 
 
     public Alumni(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, String currentJob, Integer daysToJob) {
@@ -19,6 +20,10 @@ public class Alumni extends Student {
         return daysToJob;
     }
 
+    public Integer getSalary() {
+        return salary;
+    }
+
     //SETTERS
     public void setCurrentJob(String currentJob) {
         this.currentJob = currentJob;
@@ -26,6 +31,8 @@ public class Alumni extends Student {
     public void setDaysToJob(Integer daysToJob) {
         this.daysToJob = daysToJob;
     }
+    public void setSalary(Integer salary){ this.salary = salary; }
+    //equals and hashcode
 
     //equals and hashcode
 
@@ -38,14 +45,16 @@ public class Alumni extends Student {
         Alumni alumni = (Alumni) o;
 
         if (!currentJob.equals(alumni.currentJob)) return false;
-        return daysToJob != null ? daysToJob.equals(alumni.daysToJob) : alumni.daysToJob == null;
+        if (!daysToJob.equals(alumni.daysToJob)) return false;
+        return salary.equals(alumni.salary);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + currentJob.hashCode();
-        result = 31 * result + (daysToJob != null ? daysToJob.hashCode() : 0);
+        result = 31 * result + daysToJob.hashCode();
+        result = 31 * result + salary.hashCode();
         return result;
     }
 }

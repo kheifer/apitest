@@ -6,6 +6,7 @@ import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
+import java.util.Map;
 
 public class Sql2oStudentDao implements StudentDao {
     private final Sql2o sql2o;
@@ -49,6 +50,42 @@ public class Sql2oStudentDao implements StudentDao {
                     .executeAndFetchFirst(Student.class);
         }
     }
+
+    @Override
+    public Double findAverageAge() {
+        String query = "SELECT AVG(age) FROM students";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Double.class);
+        }
+    }
+
+    @Override
+    public List<Student> getAllStudentsByTrack() {
+        return null;
+    }
+
+    @Override
+    public String getMostPopularTrack() {
+        String query = "SELECT currentTrack FROM students GROUP BY currentTrack ORDER BY COUNT(*) DESC LIMIT 1";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(String.class);
+        }
+    }
+
+//    @Override
+//    public List<String> genderDistribution() {
+//        String query2= "select gender, COUNT(gender) * 100.0 / (select count(*) from students) from students group by gender";
+//        String query = "SELECT gender, (COUNT(gender)* 100 / (Select Count(*) FROM students)) as Score FROM students GROUP BY gender";
+//        try(Connection con = sql2o.open()){
+//            return con.createQuery(query)
+//                    .throwOnMappingFailure(false)
+//                    .executeAndFetch(String.class);
+//        }
+//    }
 
     @Override
     public void update(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, int id) {
