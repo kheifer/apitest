@@ -69,6 +69,14 @@ public class Sql2oTeacherDaoTest {
 
     @Test
     public void deleteTeacherById() throws Exception {
+        Teacher teacher = setUpNew();
+        Teacher teacher2 = setUpNew2();
+        teacherDao.add(teacher);
+        teacherDao.add(teacher2);
+        int search = teacher.getId();
+        teacherDao.deleteTeacherById(search);
+        List<Teacher> tester = teacherDao.getAllTeachers();
+        assertEquals(1, tester.size());
     }
 
     @Test
