@@ -45,6 +45,18 @@ public class Sql2oStudentDaoTest {
         List<Student> test = studentDao.getAll();
         assertEquals(2, studentDao.getAll().size());
     }
+    @Test
+    public void getAll_retreivesAllStudentsByTrack() throws Exception {
+        Student student = createStudent();
+        Student student1 = createStudent();
+        Student student2 = createStudent2();
+        studentDao.add(student);
+        studentDao.add(student1);
+        studentDao.add(student2);
+        String track = student1.getCurrentTrack();
+        List<Student> test = studentDao.getAllStudentsByTrack(track);
+        assertEquals(2, test.size());
+    }
 
     @Test
     public void findbyId_retreivesInstanceOfStudentById() throws Exception {
@@ -103,21 +115,22 @@ public class Sql2oStudentDaoTest {
         String answer = studentDao.getMostPopularTrack();
         assertEquals(student.getCurrentTrack(), answer);
     }
-//    @Test
-//    public void sortByGender() throws Exception{
-//            Student student = createStudent();
-//            Student student1 = createStudent2();
-//            Student student2 = createStudent();
-//            Student student3 = createStudent();
-//            Student student4 = createStudent2();
-//            studentDao.add(student);
-//            studentDao.add(student1);
-//            studentDao.add(student2);
-//            studentDao.add(student3);
-//            studentDao.add(student4);
-//            List<String> answer = studentDao.genderDistribution();
-//            System.out.println(answer);
-//    }
+    @Test
+    public void sortByGender() throws Exception{
+            Student student = createStudent();
+            Student student1 = createStudent2();
+            Student student2 = createStudent();
+            Student student3 = createStudent();
+            Student student4 = createStudent2();
+            studentDao.add(student);
+            studentDao.add(student1);
+            studentDao.add(student2);
+            studentDao.add(student3);
+            studentDao.add(student4);
+            Double answer = studentDao.genderDistribution(student.getGender());
+            Double correct = Double.parseDouble("60");
+            assertEquals(correct, answer);
+    }
 
     public Student createStudent(){
         return new Student("Max Pass",30, "Biology", "Male", "97211", "Java",false);

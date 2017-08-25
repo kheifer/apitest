@@ -15,11 +15,11 @@ public interface StudentDao {
 
     Double findAverageAge();
 
-    List<Student> getAllStudentsByTrack();
+    List<Student> getAllStudentsByTrack(String currentTrack);
 
     String getMostPopularTrack();
 
-//List<Pair<String,Integer>> genderDistribution();
+    Double genderDistribution(String gender);
 
 
 

@@ -62,8 +62,14 @@ public class Sql2oStudentDao implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudentsByTrack() {
-        return null;
+    public List<Student> getAllStudentsByTrack(String currentTrack) {
+        String query = "SELECT * FROM students WHERE currentTrack = :currentTrack";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .addParameter("currentTrack", currentTrack)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Student.class);
+        }
     }
 
     @Override
@@ -76,16 +82,18 @@ public class Sql2oStudentDao implements StudentDao {
         }
     }
 
-//    @Override
-//    public List<String> genderDistribution() {
-//        String query2= "select gender, COUNT(gender) * 100.0 / (select count(*) from students) from students group by gender";
-//        String query = "SELECT gender, (COUNT(gender)* 100 / (Select Count(*) FROM students)) as Score FROM students GROUP BY gender";
-//        try(Connection con = sql2o.open()){
-//            return con.createQuery(query)
-//                    .throwOnMappingFailure(false)
-//                    .executeAndFetch(String.class);
-//        }
-//    }
+    @Override
+    public Double genderDistribution(String gender) {
+//        String query = "SELECT (COUNT(gender)* 100 / (SELECT COUNT(*) FROM students)) as SCORE FROM students WHERE gender = :gender";
+        try(Connection con = sql2o.open()) {
+            Double total = (double) con.createQuery("SELECT COUNT(*) FROM students")
+                    .executeAndFetchFirst(Double.class);
+            Double numberOfgender = (double) con.createQuery("SELECT COUNT(*) FROM students WHERE gender = :gender")
+                    .addParameter("gender", gender)
+                    .executeAndFetchFirst(Double.class);
+            return (double) ((numberOfgender / total) * 100 );
+        }
+    }
 
     @Override
     public void update(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, int id) {
