@@ -67,6 +67,15 @@ public class Sql2oAlumniDaoTest {
 
     @Test
     public void deleteAlumniById() throws Exception {
+        Alumni alumni = setNewAlum();
+        Alumni alumni1 = setNewAlum2();
+        alumniDao.add(alumni);
+        alumniDao.add(alumni1);
+        int searchId = alumni.getId();
+        alumniDao.deleteAlumniById(searchId);
+        List<Alumni> test = alumniDao.getAllAlumni(true);
+        assertEquals(1, studentDao.getAll().size());
+        assertEquals(1, test.size());
     }
 
     @Test

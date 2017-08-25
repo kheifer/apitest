@@ -56,6 +56,13 @@ public class Sql2oAlumniDao implements AlumniDao {
 
     @Override
     public void deleteAlumniById(int id) {
+        String query = "DELETE FROM students WHERE id = :id";
+        try(Connection con = sql2o.open()){
+            con.createQuery(query)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }
 
     }
 
