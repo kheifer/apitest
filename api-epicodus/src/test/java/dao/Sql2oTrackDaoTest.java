@@ -35,6 +35,8 @@ public class Sql2oTrackDaoTest {
         Track track = newTrack();
         trackDao.add(track);
         assertTrue(track instanceof Track);
+        int id = track.getTrackId();
+        assertEquals(1, id);
     }
 
     @Test
@@ -44,6 +46,7 @@ public class Sql2oTrackDaoTest {
         Cohort cohort = setNewCohort();
         cohortDao.add(cohort);
         trackDao.addTrackToCohort(cohort.getCohortId(),track.getTrackId());
+        assertEquals(1,trackDao.getAllTracksByCohort(cohort.getCohortId()).size());
     }
 
     @Test
@@ -58,10 +61,6 @@ public class Sql2oTrackDaoTest {
         trackDao.add(track3);
         List<Track> trackList = trackDao.getAll();
         assertEquals(4, trackList.size());
-    }
-
-    @Test
-    public void getAllTracksByCohort() throws Exception {
     }
 
     @Test

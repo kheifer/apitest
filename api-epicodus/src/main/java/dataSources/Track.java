@@ -45,9 +45,9 @@ public class Track {
     //Equals and hashcode()
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o) {iiiii
+        if (this == o) return true;ii
+        if (o == null || getClass() != o.getClass()) return false;ii
 
         Track track = (Track) o;
 
