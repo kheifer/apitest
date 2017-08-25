@@ -51,7 +51,23 @@ public class Sql2oAlumniDao implements AlumniDao {
     }
 
     @Override
-    public void updateAlumni(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, String currentJob, Integer daysToJob, int id) {
+    public void updateAlumni(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, String currentJob, Integer daysToJob, int id) {
+        String query = "UPDATE students SET(name, age, lastJob, gender, zipcode, currentTrack, graduated, currentJob, daysToJob) = (:name, :age, :lastJob, :gender, :zipcode, :currentTrack, :graduated, :currentJob, :daysToJob) WHERE id = :id";
+        try(Connection con = sql2o.open()){
+            con.createQuery(query)
+                    .addParameter("name", name)
+                    .addParameter("age", age)
+                    .addParameter("lastJob", lastJob)
+                    .addParameter("gender", gender)
+                    .addParameter("zipcode", zipcode)
+                    .addParameter("currentTrack", currentTrack)
+                    .addParameter("graduated", graduated)
+                    .addParameter("currentJob", currentJob)
+                    .addParameter("daysToJob", daysToJob)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }
     }
 
     @Override

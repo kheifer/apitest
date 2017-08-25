@@ -62,11 +62,18 @@ public class Sql2oAlumniDaoTest {
     }
 
     @Test
-    public void updateAlumni() throws Exception {
+    public void updateAlumni_updatesAlumniById() throws Exception {
+        Alumni alumni = setNewAlum();
+        Alumni alumni1 = setNewAlum2();
+        alumniDao.add(alumni);
+        alumniDao.add(alumni1);
+        int updateId = alumni.getId();
+        alumniDao.updateAlumni("Scott Bakula", 600, "Time Traveler", "Male", "97206", "PHP", true,"Designer",1, updateId);
+        assertNotEquals(alumni.getAge(), alumniDao.findById(updateId).getAge());
     }
 
     @Test
-    public void deleteAlumniById() throws Exception {
+    public void deleteAlumniById_removesAlumniFromBothStudentListAndAlumniList() throws Exception {
         Alumni alumni = setNewAlum();
         Alumni alumni1 = setNewAlum2();
         alumniDao.add(alumni);
