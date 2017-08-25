@@ -62,11 +62,11 @@ public class Sql2oStudentDao implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudentsByTrack(String currentTrack) {
-        String query = "SELECT * FROM students WHERE currentTrack = :currentTrack";
+    public List<Student> getAllStudentsByTrack(Integer trackId) {
+        String query = "SELECT * FROM students WHERE trackId = :trackId";
         try(Connection con = sql2o.open()){
             return con.createQuery(query)
-                    .addParameter("currentTrack", currentTrack)
+                    .addParameter("trackId", trackId)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(Student.class);
         }
@@ -92,6 +92,18 @@ public class Sql2oStudentDao implements StudentDao {
                     .addParameter("gender", gender)
                     .executeAndFetchFirst(Double.class);
             return (double) ((numberOfgender / total) * 100 );
+        }
+    }
+
+    @Override
+    public Double getPercentCompleted() {
+        try(Connection con = sql2o.open()) {
+            Double total = (double) con.createQuery("SELECT COUNT(*) FROM students")
+                    .executeAndFetchFirst(Double.class);
+            Double numberOfStudentsCompleted = (double) con.createQuery("SELECT COUNT(*) FROM students WHERE graduated = :graduated")
+                    .addParameter("graduated", true)
+                    .executeAndFetchFirst(Double.class);
+            return (double) ((numberOfStudentsCompleted / total) * 100 );
         }
     }
 

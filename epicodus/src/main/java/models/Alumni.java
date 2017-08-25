@@ -6,8 +6,8 @@ public class Alumni extends Student {
     private Integer salary;
 
 
-    public Alumni(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, String currentJob, Integer daysToJob) {
-        super(name, age, lastJob, gender, zipcode, currentTrack, graduated);
+    public Alumni(String name, Integer age, String lastJob, String gender, String zipcode, Integer trackId, Boolean graduated, String currentJob, Integer daysToJob) {
+        super(name, age, lastJob, gender, zipcode, trackId, graduated);
         this.currentJob = currentJob;
         this.daysToJob = daysToJob;
     }

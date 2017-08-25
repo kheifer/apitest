@@ -15,13 +15,13 @@ public interface StudentDao {
 
     Double findAverageAge();
 
-    List<Student> getAllStudentsByTrack(String currentTrack);
+    List<Student> getAllStudentsByTrack(Integer trackId);
 
     String getMostPopularTrack();
 
     Double genderDistribution(String gender);
 
-
+    Double getPercentCompleted();
 
     void update(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, int id);
 
