@@ -41,7 +41,7 @@ public class Sql2oStudentDao implements StudentDao {
 
     @Override
     public Student findbyId(int id) {
-        return null;
+
     }
 
     @Override

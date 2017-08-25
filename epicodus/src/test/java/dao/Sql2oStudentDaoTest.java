@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class Sql2oStudentDaoTest {
@@ -39,11 +41,19 @@ public class Sql2oStudentDaoTest {
         Student student1 = createStudent();
         studentDao.add(student);
         studentDao.add(student1);
+        List<Student> test = studentDao.getAll();
         assertEquals(2, studentDao.getAll().size());
     }
 
     @Test
-    public void findbyId() throws Exception {
+    public void findbyId_retreivesInstanceOfStudentById() throws Exception {
+        Student student = createStudent();
+        Student student1 = createStudent2();
+        studentDao.add(student);
+        studentDao.add(student1);
+        int id = student.getId();
+        Student finder = studentDao.findbyId(id);
+        assertEquals(student.getAge(), finder.getAge());
     }
 
     @Test
@@ -51,10 +61,20 @@ public class Sql2oStudentDaoTest {
     }
 
     @Test
-    public void deleteById() throws Exception {
+    public void deleteById_deletesInstanceofStudentById() throws Exception {
+        Student student = createStudent();
+        Student student1 = createStudent2();
+        studentDao.add(student);
+        studentDao.add(student1);
+        int id = student.getId();
+        studentDao.deleteById(id);
+        assertEquals(1, studentDao.getAll().size());
     }
 
     public Student createStudent(){
         return new Student("Max Pass",30, "Biology", "Male", "97211", "Java",false);
+    }
+    public Student createStudent2(){
+        return new Student("Scary Terry",20, "Food Service", "Female", "97211", "Java",false);
     }
 }
