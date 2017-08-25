@@ -11,7 +11,7 @@ public interface CohortDao {
 
     Cohort findById(int id);
 
-    void updateCohort(String cohortName, String cohortLocation, int cohortId);
+    void updateCohort(String cohortName, String cohortLocation, String dateStarted, int cohortId);
 
     void deleteCohortById(int id);
 }

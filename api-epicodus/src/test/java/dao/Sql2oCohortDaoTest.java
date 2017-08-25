@@ -28,7 +28,7 @@ public class Sql2oCohortDaoTest {
         con.close();
     }
     @Test
-    public void add() throws Exception {
+    public void add_AddsNewCohortToDatabase() throws Exception {
         Cohort newCohort = setNewCohort();
         int id = newCohort.getCohortId();
         cohortDao.add(newCohort);
@@ -65,7 +65,6 @@ public class Sql2oCohortDaoTest {
 
     @Test
     public void updateCohort() throws Exception {
-        Cohort newCohort = setNewCohort();
         Cohort newCohort1= setNewCohort();
         Cohort newCohort2= setNewCohort1();
         Cohort newCohort3= setNewCohort();
@@ -74,7 +73,7 @@ public class Sql2oCohortDaoTest {
         cohortDao.add(newCohort2);
         cohortDao.add(newCohort3);
         cohortDao.add(newCohort4);
-        cohortDao.updateCohort("Spring 2016", "Portland, OR", newCohort1.getCohortId());
+        cohortDao.updateCohort("Spring 2016", "Portland, OR", "09/20/2017", newCohort1.getCohortId());
         assertEquals("Spring 2016", cohortDao.findById(newCohort1.getCohortId()).getCohortName());
     }
 
@@ -96,9 +95,9 @@ public class Sql2oCohortDaoTest {
     }
 
     public Cohort setNewCohort(){
-        return new Cohort("Fall 2017","Portland, Or");
+        return new Cohort("September 2017","Portland, Or","09/17/2017");
     }
     public Cohort setNewCohort1(){
-        return new Cohort("Summer 2017","Portland, Or");
+        return new Cohort("Summer 2017","Portland, Or","07/11/2017");
     }
 }
