@@ -31,7 +31,7 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void setTrackId(Student student, int trackId) {
-        String query = "INSERT into students trackId = :trackId WHERE id = :id";
+        String query = "INSERT into students (trackId) VALUES (:trackId) WHERE id = :id";
         try(Connection con = sql2o.open()){
             con.createQuery(query)
                     .addParameter("id", student.getId())
