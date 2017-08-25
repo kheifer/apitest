@@ -37,7 +37,8 @@ public class Sql2oAlumniDao implements AlumniDao {
                     .addParameter("graduated", graduated)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(Alumni.class);
-        }    }
+        }
+    }
 
     @Override
     public Alumni findById(int id) {

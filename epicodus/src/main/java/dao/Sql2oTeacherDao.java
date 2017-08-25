@@ -31,7 +31,11 @@ public class Sql2oTeacherDao implements TeacherDao {
 
     @Override
     public List<Teacher> getAllTeachers() {
-        return null;
+        String query = "SELECT * FROM teachers";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .executeAndFetch(Teacher.class);
+        }
     }
 
     @Override

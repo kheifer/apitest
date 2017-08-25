@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class Sql2oTeacherDaoTest {
@@ -39,11 +41,26 @@ public class Sql2oTeacherDaoTest {
     }
 
     @Test
-    public void getAllTeachers() throws Exception {
+    public void getAllTeachers_retreivesAllTeachersFromDatabase() throws Exception {
+        Teacher teacher = setUpNew();
+        Teacher teacher2 = setUpNew2();
+        teacherDao.add(teacher);
+        teacherDao.add(teacher2);
+        List<Teacher> tester = teacherDao.getAllTeachers();
+        assertEquals(2, tester.size());
+        assertEquals(teacher.getClassesTaught(), tester.get(0).getClassesTaught());
+
     }
 
     @Test
-    public void findById() throws Exception {
+    public void findById_returnsTeacherbyId() throws Exception {
+        Teacher teacher = setUpNew();
+        Teacher teacher2 = setUpNew2();
+        teacherDao.add(teacher);
+        teacherDao.add(teacher2);
+        int search = teacher.getId();
+        Teacher found = teacherDao.findById(search);
+        assertEquals(teacher.getGender(), found.getGender());
     }
 
     @Test
@@ -59,6 +76,9 @@ public class Sql2oTeacherDaoTest {
     }
 
     public Teacher setUpNew(){
-        return new Teacher("Tommy Bahama", "02102016","Male", "092110",5);
+        return new Teacher("Tommy Bahama", "02102016","Male", "92110",5);
+    }
+    public Teacher setUpNew2(){
+        return new Teacher("Rick Ross", "02112016","Male", "97211",2);
     }
 }
