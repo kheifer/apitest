@@ -81,6 +81,11 @@ public class Sql2oTeacherDaoTest {
 
     @Test
     public void removeAllTeachers() throws Exception {
+        Teacher teacher = setUpNew();
+        Teacher teacher2 = setUpNew2();
+        teacherDao.add(teacher);
+        teacherDao.add(teacher2);
+        assertEquals(0, teacherDao.getAllTeachers().size());
     }
 
     public Teacher setUpNew(){

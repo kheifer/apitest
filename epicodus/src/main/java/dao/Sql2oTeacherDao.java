@@ -65,6 +65,10 @@ public class Sql2oTeacherDao implements TeacherDao {
 
     @Override
     public void removeAllTeachers() {
-
+        String query = "DELETE FROM teachers";
+        try(Connection con = sql2o.open()){
+            con.createQuery(query)
+                    .executeUpdate();
+        }
     }
 }
