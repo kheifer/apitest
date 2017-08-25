@@ -13,9 +13,8 @@ import static org.junit.Assert.*;
 
 public class Sql2oAlumniDaoTest {
     private Sql2oStudentDao studentDao;
-    private AlumniDao alumniDao;
-    private Connection con; //must be sql2o class conn
-
+    private Sql2oAlumniDao alumniDao;
+    private Connection con;
     @Before
     public void setUp() throws Exception {
         String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";

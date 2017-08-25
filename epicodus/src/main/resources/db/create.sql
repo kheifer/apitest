@@ -12,3 +12,11 @@ CREATE TABLE IF NOT EXISTS students (
     currentJob VARCHAR,
     daysToJob INTEGER,
 );
+CREATE TABLE IF NOT EXISTS teachers(
+    id int PRIMARY KEY auto_increment,
+    name VARCHAR,
+    hireDate VARCHAR,
+    gender VARCHAR,
+    zipcode VARCHAR,
+    classesTaught INTEGER,
+);
