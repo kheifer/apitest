@@ -10,13 +10,14 @@ public class Student {
     private int id;
     private Boolean graduated;
 
-    public Student(String name, Integer age, String lastJob, String gender, String zipcode, Boolean graduated){
+    public Student(String name, Integer age, String lastJob, String gender, int trackId, String zipcode, Boolean graduated){
         this.name = name;
         this.age = age;
         this.lastJob = lastJob;
         this.gender = gender;
         this.zipcode = zipcode;
         this.graduated = graduated;
+        this.trackId = trackId;
     }
 
     //GETTERS and SETTERS
