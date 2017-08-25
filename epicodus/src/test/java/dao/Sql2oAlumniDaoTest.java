@@ -40,17 +40,25 @@ public class Sql2oAlumniDaoTest {
     }
     @Test
     public void getAll_addsAlumnitToDatabase() throws Exception {
-        Alumni student = setNewAlum();
-        Alumni student1 = setNewAlum();
-        alumniDao.add(student);
-        alumniDao.add(student1);
+        Alumni alumni = setNewAlum();
+        Alumni alumni1 = setNewAlum();
+        alumniDao.add(alumni);
+        alumniDao.add(alumni1);
         List<Alumni> test = alumniDao.getAllAlumni(true);
         assertEquals(2, studentDao.getAll().size());
         assertEquals(2, test.size());
     }
 
     @Test
-    public void findById() throws Exception {
+    public void findById_findsAlumniById() throws Exception {
+        Alumni alumni = setNewAlum();
+        Alumni alumni1 = setNewAlum2();
+        alumniDao.add(alumni);
+        alumniDao.add(alumni1);
+        int searchId = alumni.getId();
+        Alumni search = alumniDao.findById(searchId);
+        assertEquals(alumni.getDaysToJob(), search.getDaysToJob());
+        assertEquals(alumni.getCurrentJob(), search.getCurrentJob());
     }
 
     @Test
@@ -67,5 +75,8 @@ public class Sql2oAlumniDaoTest {
 
     public Alumni setNewAlum(){
         return new Alumni("Graduate Gradinton", 30, "Hospitality", "Male", "97200", "Java", true, "Developer", 100);
+    }
+    public Alumni setNewAlum2(){
+        return new Alumni("Junior Monster", 23, "Aeronautics", "Female", "97210", "Design", true, "Developer", 100);
     }
 }

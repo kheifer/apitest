@@ -41,7 +41,13 @@ public class Sql2oAlumniDao implements AlumniDao {
 
     @Override
     public Alumni findById(int id) {
-        return null;
+        String query = "SELECT * FROM students WHERE id = :id";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Alumni.class);
+        }
     }
 
     @Override
