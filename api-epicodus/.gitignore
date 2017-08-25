@@ -54,8 +54,6 @@ gradle/
 gradlew/
 settings.gradle
 out/
-pizza-time/
-epicodus/
 
 # Ignore Gradle GUI config
 gradle-app.setting
