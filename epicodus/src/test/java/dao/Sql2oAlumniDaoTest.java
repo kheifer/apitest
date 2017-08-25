@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class Sql2oAlumniDaoTest {
@@ -28,7 +30,7 @@ public class Sql2oAlumniDaoTest {
     }
 
     @Test
-    public void add() throws Exception{
+    public void add_addsNewAlumnitoDatabase() throws Exception{
         Alumni alumni = setNewAlum();
         int id = alumni.getId();
         alumniDao.add(alumni);
@@ -37,7 +39,14 @@ public class Sql2oAlumniDaoTest {
 
     }
     @Test
-    public void getAll() throws Exception {
+    public void getAll_addsAlumnitToDatabase() throws Exception {
+        Alumni student = setNewAlum();
+        Alumni student1 = setNewAlum();
+        alumniDao.add(student);
+        alumniDao.add(student1);
+        List<Alumni> test = alumniDao.getAllAlumni(true);
+        assertEquals(2, studentDao.getAll().size());
+        assertEquals(2, test.size());
     }
 
     @Test

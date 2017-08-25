@@ -30,9 +30,14 @@ public class Sql2oAlumniDao implements AlumniDao {
     }
 
     @Override
-    public List<Alumni> getAll(Boolean graduated) {
-        return null;
-    }
+    public List<Alumni> getAllAlumni(Boolean graduated) {
+        String query = "SELECT * FROM students WHERE graduated = :graduated";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .addParameter("graduated", graduated)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Alumni.class);
+        }    }
 
     @Override
     public Alumni findById(int id) {

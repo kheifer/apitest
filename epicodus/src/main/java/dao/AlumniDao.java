@@ -7,7 +7,7 @@ import java.util.List;
 public interface AlumniDao {
     void add(Alumni alumni);
 
-    List<Alumni> getAll(Boolean graduated);
+    List<Alumni> getAllAlumni(Boolean graduated);
 
     Alumni findById(int id);
 
