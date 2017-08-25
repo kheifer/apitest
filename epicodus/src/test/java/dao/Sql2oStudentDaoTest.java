@@ -57,7 +57,14 @@ public class Sql2oStudentDaoTest {
     }
 
     @Test
-    public void update() throws Exception {
+    public void update_updatesInstanceofStudentById() throws Exception {
+        Student student = createStudent();
+        Student student1 = createStudent2();
+        studentDao.add(student);
+        studentDao.add(student1);
+        int updateId = student.getId();
+        studentDao.update("Walter White",55, "Pharmacist", "Male", "97211", "Java",false, updateId);
+        assertNotEquals(student.getAge(), studentDao.findbyId(updateId).getAge());
     }
 
     @Test

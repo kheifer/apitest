@@ -16,7 +16,7 @@ public class Sql2oStudentDao implements StudentDao {
 
     @Override
     public void add(Student student) {
-        String query = "INSERT into students (name, age, lastJob, gender, zipcode, currentTrack) VALUES (:name, :age, :lastJob, :gender, :zipcode, :currentTrack)";
+        String query = "INSERT into students (name, age, lastJob, gender, zipcode, currentTrack, graduated) VALUES (:name, :age, :lastJob, :gender, :zipcode, :currentTrack, :graduated)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(query)
                     .bind(student)
@@ -52,11 +52,30 @@ public class Sql2oStudentDao implements StudentDao {
 
     @Override
     public void update(String name, Integer age, String lastJob, String gender, String zipcode, String currentTrack, Boolean graduated, int id) {
-
+        String query = "UPDATE students SET(name, age, lastJob, gender, zipcode, currentTrack, graduated) = (:name, :age, :lastJob, :gender, :zipcode, :currentTrack, :graduated) WHERE id = :id";
+        try(Connection con = sql2o.open()){
+            con.createQuery(query)
+                    .addParameter("name", name)
+                    .addParameter("age", age)
+                    .addParameter("lastJob", lastJob)
+                    .addParameter("gender", gender)
+                    .addParameter("zipcode", zipcode)
+                    .addParameter("currentTrack", currentTrack)
+                    .addParameter("graduated", graduated)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }
     }
 
     @Override
     public void deleteById(int id) {
-
+        String query = "DELETE FROM students WHERE id = :id";
+        try(Connection con = sql2o.open()){
+             con.createQuery(query)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }
     }
 }
