@@ -35,7 +35,11 @@ public class Sql2oStudentDaoTest {
 
     @Test
     public void getAll_retreivesAllStudents() throws Exception {
-
+        Student student = createStudent();
+        Student student1 = createStudent();
+        studentDao.add(student);
+        studentDao.add(student1);
+        assertEquals(2, studentDao.getAll().size());
     }
 
     @Test

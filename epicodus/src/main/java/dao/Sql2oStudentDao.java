@@ -31,7 +31,12 @@ public class Sql2oStudentDao implements StudentDao {
 
     @Override
     public List<Student> getAll() {
-        return null;
+        String query = "SELECT * FROM students";
+        try(Connection con = sql2o.open()){
+            return con.createQuery(query)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Student.class);
+        }
     }
 
     @Override
