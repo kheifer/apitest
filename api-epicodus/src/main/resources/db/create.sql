@@ -28,4 +28,5 @@ CREATE TABLE IF NOT EXISTS students (
     graduated BOOLEAN,
     currentJob VARCHAR,
     daysToJob INTEGER,
+    salary INTEGER,
 );
