@@ -1,1 +1,55 @@
+{
+	"cohortName": "September 2017",
+  "location":"Portland, OR",
+  "location":"09/08/17",
+}
 
+{
+	"cohortName": "September 2017",
+  "location":"Seattle, WA",
+  "location":"09/08/17",
+}
+
+{
+  "focus": "Java",
+  "description": "Intro/Java/JavaScript/Android/Internship",
+  "duration": "27 weeks",
+  "commitment": "45 hours per week"
+}
+
+{
+  "focus": "CSS",
+  "description": "Intro/CSS/JavaScript/Design/Internship",
+  "duration": "27 weeks",
+  "commitment": "45 hours per week"
+}
+
+{
+  "name":"Bob LobLaw",
+  "age": "25",
+  "lastJob":"Waiter",
+  "gender": "male",
+  "zipcode":"97211",
+  "trackId": "1",
+  "graduated": "false"
+}
+
+{
+  "name":"Scott LeScottinson",
+  "age": "34",
+  "lastJob":"Cook",
+  "gender": "Female",
+  "zipcode":"97211",
+  "trackId": "1",
+  "graduated": "false"
+}
+
+{
+  "name":"Mary LeMaryMi",
+  "age": "43",
+  "lastJob":"Firefighter",
+  "gender": "Female",
+  "zipcode":"06108",
+  "trackId": "1",
+  "graduated": "false"
+}
