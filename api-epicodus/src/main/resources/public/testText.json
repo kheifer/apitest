@@ -53,3 +53,39 @@
   "trackId": "1",
   "graduated": "false"
 }
+
+{
+  "name":"Mary LeMaryMi",
+  "age": "43",
+  "lastJob":"Firefighter",
+  "gender": "Female",
+  "zipcode":"06108",
+  "trackId": "1",
+  "graduated": "false"
+}
+
+{
+  "name":"Bart LaBartholemieu",
+  "age": "43",
+  "lastJob":"Student",
+  "gender": "Female",
+  "zipcode": "97211",
+  "trackId": "1",
+  "graduated": "false",
+  "currentJob": "Java Developer",
+  "daysToJob" : "120",
+  "salary":"60000"
+}
+
+{
+  "name":"Pedro Cabral",
+  "age": "27",
+  "lastJob":"Student",
+  "gender": "Male",
+  "zipcode": "97206",
+  "trackId": "1",
+  "graduated": "false",
+  "currentJob": "Java Developer",
+  "daysToJob" : "120",
+  "salary":"60000"
+}
